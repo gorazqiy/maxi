@@ -3,7 +3,7 @@ const Footer = () => {
       <footer style={styles.footer}>
          <div className="container footer-container">
             <p>
-               &copy; {new Date().getFullYear()} МАкси - Магазин собственного
+               &copy; {new Date().getFullYear()} Макси - магазин собственного
                производства
             </p>
             <p>Все права защищены</p>

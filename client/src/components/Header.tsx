@@ -17,7 +17,8 @@ const Header = () => {
       <header style={styles.header}>
          <div className="container" style={styles.container}>
             <Link to="/" style={styles.logo} onClick={closeMenu}>
-               <h1>Макси</h1>
+               <img src="/m-logo.jpg" alt="Макси" style={styles.logoImg} />
+               <span style={styles.logoText}>Наши марки</span>
             </Link>
 
             <button
@@ -101,6 +102,19 @@ const styles: Record<string, React.CSSProperties> = {
    },
    logo: {
       textDecoration: "none",
+      display: "flex",
+      alignItems: "center",
+   },
+   logoImg: {
+      height: 50,
+      width: "auto",
+      display: "block",
+   },
+   logoText: {
+      fontSize: 20,
+      color: "var(--text-light)",
+      marginLeft: 12,
+      whiteSpace: "nowrap",
    },
    nav: {
       display: "flex",

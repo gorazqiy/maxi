@@ -5,9 +5,9 @@
 }
 
 :root {
-   --primary: #4a7c59;
-   --primary-dark: #3a6347;
-   --secondary: #f5f0e8;
+   --primary: #e67e22;
+   --primary-dark: #d35400;
+   --secondary: #fef9f0;
    --text: #333;
    --text-light: #666;
    --white: #fff;
@@ -19,7 +19,7 @@
 }
 
 body {
-   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+   font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
    color: var(--text);
    background-color: var(--secondary);
    line-height: 1.6;
