@@ -47,7 +47,23 @@ export const addToCart = async (req: AuthRequest, res: Response) => {
       if (existingItem) {
          existingItem.quantity += quantity;
          await existingItem.save();
-         return res.json(existingItem);
+         const updatedItem = await CartItem.findByPk(existingItem.id, {
+            include: [
+               {
+                  model: Product,
+                  as: "product",
+                  include: [
+                     {
+                        model: ProductImage,
+                        as: "images",
+                        attributes: ["id", "image_url", "sort_order"],
+                        order: [["sort_order", "ASC"]],
+                     },
+                  ],
+               },
+            ],
+         });
+         return res.json(updatedItem);
       }
 
       const cartItem = await CartItem.create({
@@ -56,7 +72,24 @@ export const addToCart = async (req: AuthRequest, res: Response) => {
          quantity,
       });
 
-      res.status(201).json(cartItem);
+      const createdItem = await CartItem.findByPk(cartItem.id, {
+         include: [
+            {
+               model: Product,
+               as: "product",
+               include: [
+                  {
+                     model: ProductImage,
+                     as: "images",
+                     attributes: ["id", "image_url", "sort_order"],
+                     order: [["sort_order", "ASC"]],
+                  },
+               ],
+            },
+         ],
+      });
+
+      res.status(201).json(createdItem);
    } catch (error) {
       res.status(500).json({
          message: "Ошибка при добавлении в корзину",
@@ -85,7 +118,24 @@ export const updateQuantity = async (req: AuthRequest, res: Response) => {
       cartItem.quantity = quantity;
       await cartItem.save();
 
-      res.json(cartItem);
+      const updatedItem = await CartItem.findByPk(cartItem.id, {
+         include: [
+            {
+               model: Product,
+               as: "product",
+               include: [
+                  {
+                     model: ProductImage,
+                     as: "images",
+                     attributes: ["id", "image_url", "sort_order"],
+                     order: [["sort_order", "ASC"]],
+                  },
+               ],
+            },
+         ],
+      });
+
+      res.json(updatedItem);
    } catch (error) {
       res.status(500).json({
          message: "Ошибка при обновлении количества",

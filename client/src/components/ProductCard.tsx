@@ -46,13 +46,14 @@ const styles: Record<string, React.CSSProperties> = {
    },
    imageContainer: {
       width: "100%",
-      height: 250,
+      aspectRatio: "1 / 1",
       overflow: "hidden",
    },
    image: {
       width: "100%",
       height: "100%",
-      objectFit: "cover",
+      objectFit: "contain",
+      backgroundColor: "#f8f8f8",
    },
    info: {
       padding: 15,

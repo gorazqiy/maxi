@@ -40,6 +40,7 @@ export const getAll = async (req: Request, res: Response) => {
 
       const { rows: products, count: total } = await Product.findAndCountAll({
          where,
+         distinct: true,
          include: [
             {
                model: Category,
