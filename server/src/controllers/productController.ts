@@ -51,7 +51,6 @@ export const getAll = async (req: Request, res: Response) => {
                model: ProductImage,
                as: "images",
                attributes: ["id", "image_url", "sort_order"],
-               order: [["sort_order", "ASC"]],
             },
          ],
          order,
@@ -59,8 +58,17 @@ export const getAll = async (req: Request, res: Response) => {
          offset,
       });
 
+      // Сортировка изображений по sort_order
+      const sortedProducts = products.map((product) => {
+         const data = product.toJSON();
+         if (data.images) {
+            data.images.sort((a, b) => a.sort_order - b.sort_order);
+         }
+         return data;
+      });
+
       res.json({
-         products,
+         products: sortedProducts,
          total,
          page: Number(page),
          totalPages: Math.ceil(total / Number(limit)),
@@ -83,7 +91,6 @@ export const getById = async (req: Request, res: Response) => {
                model: ProductImage,
                as: "images",
                attributes: ["id", "image_url", "sort_order"],
-               order: [["sort_order", "ASC"]],
             },
          ],
       });
@@ -92,7 +99,13 @@ export const getById = async (req: Request, res: Response) => {
          return res.status(404).json({ message: "Товар не найден" });
       }
 
-      res.json(product);
+      // Сортировка изображений по sort_order
+      const data = product.toJSON();
+      if (data.images) {
+         data.images.sort((a, b) => a.sort_order - b.sort_order);
+      }
+
+      res.json(data);
    } catch (error) {
       res.status(500).json({ message: "Ошибка при получении товара", error });
    }

@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
-import { fetchProducts, setFilters } from "../store/productsSlice";
+import {
+   fetchProducts,
+   setFilters,
+   clearFilters,
+} from "../store/productsSlice";
 import { fetchCategories } from "../store/categoriesSlice";
 import FilterBar from "../components/FilterBar";
 import ProductCard from "../components/ProductCard";
@@ -21,7 +25,11 @@ const HomePage = () => {
    }, [dispatch, filters]);
 
    const handleFilterChange = (newFilters: IProductFilters) => {
-      dispatch(setFilters(newFilters));
+      if (Object.keys(newFilters).length === 0) {
+         dispatch(clearFilters());
+      } else {
+         dispatch(setFilters(newFilters));
+      }
    };
 
    const handlePageChange = (newPage: number) => {

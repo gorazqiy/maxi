@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
+import { IProductImageAttributes } from "./ProductImage";
 
 export interface IProductAttributes {
    id: number;
@@ -10,6 +11,7 @@ export interface IProductAttributes {
    category_id: number;
    created_at: Date;
    updated_at: Date;
+   images?: IProductImageAttributes[];
 }
 
 interface IProductCreationAttributes extends Optional<
