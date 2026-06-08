@@ -160,6 +160,7 @@ const styles: Record<string, React.CSSProperties> = {
       cursor: "pointer",
       textAlign: "left",
       fontSize: 14,
+      outline: "none",
    },
    activeBtn: {
       backgroundColor: "var(--primary)",

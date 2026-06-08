@@ -115,6 +115,7 @@ const styles: Record<string, React.CSSProperties> = {
       color: "var(--text-light)",
       marginLeft: 12,
       whiteSpace: "nowrap",
+      fontWeight: 700,
    },
    nav: {
       display: "flex",

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch } from "./store";
 import { fetchUser } from "./store/authSlice";
+import { fetchCart } from "./store/cartSlice";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -19,6 +20,7 @@ function App() {
       const token = localStorage.getItem("token");
       if (token) {
          dispatch(fetchUser());
+         dispatch(fetchCart());
       }
    }, [dispatch]);
 
