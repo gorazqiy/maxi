@@ -44,6 +44,12 @@ button {
    transition: all 0.3s ease;
 }
 
+button:focus,
+button:focus-visible {
+   outline: none;
+   box-shadow: none;
+}
+
 .btn-primary {
    background-color: var(--primary);
    color: var(--white);
@@ -271,8 +277,11 @@ textarea:focus {
 }
 
 /* Крестик закрытия фильтров — скрыт на десктопе */
-.sidebar-close {
+.filter-close {
    display: none;
+   align-self: center;
+   align-items: center;
+   justify-content: center;
 }
 
 @media (max-width: 770px) {
@@ -288,28 +297,12 @@ textarea:focus {
    /* Показываем фильтры при открытии */
    .sidebar-filters.open {
       display: block;
+      overflow-y: auto;
+      max-height: 85vh;
    }
 
-   /* Крестик закрытия — виден только когда фильтры открыты */
-   .sidebar-close {
-      display: none;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 32px;
-      height: 32px;
-      border: none;
-      background: rgba(0, 0, 0, 0.05);
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      color: var(--text);
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-   }
-
-   .sidebar-filters.open .sidebar-close {
+   /* Крестик закрытия — только на мобильных */
+   .filter-close {
       display: flex !important;
    }
 }

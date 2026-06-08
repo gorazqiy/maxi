@@ -47,17 +47,11 @@ const HomePage = () => {
             className={`sidebar-filters ${filtersVisible ? "open" : ""}`}
             style={styles.sidebar}
          >
-            <button
-               className="sidebar-close"
-               onClick={() => setFiltersVisible(false)}
-               aria-label="Закрыть фильтры"
-            >
-               ✕
-            </button>
             <FilterBar
                categories={categories}
                filters={filters}
                onFilterChange={handleFilterChange}
+               onClose={() => setFiltersVisible(false)}
             />
          </div>
 
@@ -137,6 +131,7 @@ const styles: Record<string, React.CSSProperties> = {
    total: {
       color: "var(--text-light)",
       fontSize: 14,
+      marginLeft: 10,
    },
    pagination: {
       display: "flex",

@@ -6,9 +6,15 @@ interface FilterBarProps {
    categories: ICategory[];
    filters: IProductFilters;
    onFilterChange: (filters: IProductFilters) => void;
+   onClose?: () => void;
 }
 
-const FilterBar = ({ categories, filters, onFilterChange }: FilterBarProps) => {
+const FilterBar = ({
+   categories,
+   filters,
+   onFilterChange,
+   onClose,
+}: FilterBarProps) => {
    const [minPrice, setMinPrice] = useState(filters.minPrice?.toString() || "");
    const [maxPrice, setMaxPrice] = useState(filters.maxPrice?.toString() || "");
 
@@ -45,6 +51,16 @@ const FilterBar = ({ categories, filters, onFilterChange }: FilterBarProps) => {
 
    return (
       <div style={styles.filterBar}>
+         {onClose && (
+            <button
+               onClick={onClose}
+               className="filter-close"
+               style={styles.closeBtn}
+               aria-label="Закрыть фильтры"
+            >
+               ✕
+            </button>
+         )}
          <input
             type="text"
             placeholder="Поиск товаров..."
@@ -140,6 +156,21 @@ const styles: Record<string, React.CSSProperties> = {
       display: "flex",
       flexDirection: "column",
       gap: 15,
+      position: "relative",
+   },
+   closeBtn: {
+      alignSelf: "center",
+      width: 32,
+      height: 32,
+      border: "none",
+      background: "rgba(0, 0, 0, 0.05)",
+      borderRadius: "50%",
+      cursor: "pointer",
+      fontSize: 18,
+      color: "var(--text)",
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: 5,
    },
    searchInput: {
       padding: 10,
@@ -154,7 +185,7 @@ const styles: Record<string, React.CSSProperties> = {
    },
    categoryBtn: {
       padding: "8px 12px",
-      border: "1px solid var(--border)",
+      // border: "1px solid var(--border)",
       borderRadius: "var(--radius)",
       backgroundColor: "var(--white)",
       cursor: "pointer",

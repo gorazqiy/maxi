@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IProductImage } from "../types/product";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 interface ImageSliderProps {
    images: IProductImage[];
@@ -8,6 +9,7 @@ interface ImageSliderProps {
 
 const ImageSlider = ({ images, productName }: ImageSliderProps) => {
    const [activeIndex, setActiveIndex] = useState(0);
+   const isSmallScreen = useMediaQuery("(max-width: 424px)");
 
    if (!images || images.length === 0) {
       return (
@@ -54,13 +56,14 @@ const ImageSlider = ({ images, productName }: ImageSliderProps) => {
             )}
          </div>
 
-         {images.length > 1 && (
+         {images.length > 1 && !isSmallScreen && (
             <div style={styles.thumbnails}>
                {images.map((img, index) => (
                   <img
                      key={img.id}
                      src={img.image_url}
                      alt={`${productName} - миниатюра ${index + 1}`}
+                     border-style
                      onClick={() => setActiveIndex(index)}
                      style={{
                         ...styles.thumbnail,
