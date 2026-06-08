@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store";
 import {
    fetchCart,
@@ -7,19 +7,29 @@ import {
    removeFromCart,
    clearCart,
 } from "../store/cartSlice";
-import axiosInstance from "../api/axiosInstance";
+import { paymentApi } from "../api/paymentApi";
 
 const CartPage = () => {
    const dispatch = useAppDispatch();
    const { items, loading, error } = useAppSelector((state) => state.cart);
    const { token } = useAppSelector((state) => state.auth);
    const [orderCreated, setOrderCreated] = useState(false);
+   const [paymentLoading, setPaymentLoading] = useState(false);
+   const [searchParams] = useSearchParams();
 
    useEffect(() => {
       if (token) {
          dispatch(fetchCart());
       }
    }, [dispatch, token]);
+
+   // Показываем сообщение об успешной оплате при редиректе с YooKassa
+   useEffect(() => {
+      if (searchParams.get("payment") === "success") {
+         setOrderCreated(true);
+         setTimeout(() => setOrderCreated(false), 5000);
+      }
+   }, [searchParams]);
 
    const handleQuantityChange = (itemId: number, quantity: number) => {
       if (quantity < 1) return;
@@ -35,13 +45,14 @@ const CartPage = () => {
    };
 
    const handleCreateOrder = async () => {
+      setPaymentLoading(true);
       try {
-         await axiosInstance.post("/orders");
-         setOrderCreated(true);
-         dispatch(fetchCart());
-         setTimeout(() => setOrderCreated(false), 3000);
+         const result = await paymentApi.createPayment();
+         // Перенаправляем пользователя на страницу оплаты YooKassa
+         window.location.href = result.payment_url;
       } catch (err) {
-         alert("Ошибка при создании заказа");
+         alert("Ошибка при создании платежа");
+         setPaymentLoading(false);
       }
    };
 
@@ -95,7 +106,9 @@ const CartPage = () => {
          </div>
 
          {orderCreated && (
-            <div style={styles.success}>✓ Заказ успешно создан!</div>
+            <div style={styles.success}>
+               ✓ Оплата прошла успешно! Заказ оформлен.
+            </div>
          )}
 
          <div style={styles.itemsList}>
@@ -173,9 +186,15 @@ const CartPage = () => {
             <button
                onClick={handleCreateOrder}
                className="btn-primary"
-               style={styles.orderBtn}
+               style={{
+                  ...styles.orderBtn,
+                  ...(paymentLoading ? styles.orderBtnDisabled : {}),
+               }}
+               disabled={paymentLoading}
             >
-               Оформить заказ
+               {paymentLoading
+                  ? "Переход к оплате..."
+                  : "Оплатить через ЮKassa"}
             </button>
          </div>
       </div>
@@ -318,6 +337,10 @@ const styles: Record<string, React.CSSProperties> = {
       padding: "14px 30px",
       fontSize: 16,
       fontWeight: 600,
+   },
+   orderBtnDisabled: {
+      opacity: 0.6,
+      cursor: "not-allowed",
    },
 };
 

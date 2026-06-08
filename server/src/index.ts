@@ -16,6 +16,7 @@ import categoryRoutes from "./routes/categoryRoutes";
 import productRoutes from "./routes/productRoutes";
 import cartRoutes from "./routes/cartRoutes";
 import orderRoutes from "./routes/orderRoutes";
+import paymentRoutes from "./routes/paymentRoutes";
 
 import "./models";
 
@@ -37,6 +38,8 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
+
+app.use("/api/payments", paymentRoutes);
 
 // Маршруты загрузки изображений
 app.post(
