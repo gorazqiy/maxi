@@ -27,7 +27,7 @@ const ImageSlider = ({ images, productName }: ImageSliderProps) => {
 
    return (
       <div style={styles.slider}>
-         <div style={styles.mainImage}>
+         <div className="image-slider-main" style={styles.mainImage}>
             {images.length > 1 && (
                <button
                   onClick={handlePrev}

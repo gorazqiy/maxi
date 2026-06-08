@@ -103,6 +103,7 @@ textarea:focus {
    padding: 20px;
 }
 
+/* ---------- Сетка товаров ---------- */
 .grid {
    display: grid;
    grid-template-columns: repeat(3, 1fr);
@@ -117,6 +118,251 @@ textarea:focus {
 
 @media (max-width: 600px) {
    .grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+   }
+}
+
+@media (max-width: 420px) {
+   .grid {
       grid-template-columns: 1fr;
+   }
+}
+
+/* ---------- Хедер (мобильный) ---------- */
+.hamburger {
+   display: none;
+   flex-direction: column;
+   gap: 5px;
+   background: none;
+   border: none;
+   cursor: pointer;
+   padding: 5px;
+}
+
+.hamburger span {
+   width: 26px;
+   height: 3px;
+   background: var(--text);
+   border-radius: 2px;
+   transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+   transform: rotate(45deg) translate(5px, 6px);
+}
+
+.hamburger.open span:nth-child(2) {
+   opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+   transform: rotate(-45deg) translate(5px, -6px);
+}
+
+@media (max-width: 770px) {
+   .hamburger {
+      display: flex;
+   }
+}
+
+/* ---------- Мобильное меню навигации ---------- */
+@media (max-width: 770px) {
+   .nav-menu {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      flex-direction: column !important;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transform: translateY(-120%);
+      visibility: hidden;
+      transition:
+         transform 0.3s ease,
+         visibility 0.3s ease;
+      z-index: 99;
+   }
+
+   .nav-menu.open {
+      transform: translateY(0);
+      visibility: visible;
+   }
+
+   header {
+      overflow: hidden;
+   }
+}
+
+/* ---------- Корзина (адаптив) ---------- */
+@media (max-width: 768px) {
+   .cart-page .cart-item {
+      flex-wrap: wrap;
+      gap: 10px;
+   }
+
+   .cart-page .cart-item-image {
+      width: 60px !important;
+      height: 60px !important;
+   }
+
+   .cart-page .cart-item-info {
+      flex: 1 1 calc(100% - 70px);
+   }
+
+   .cart-page .cart-item-quantity {
+      order: 1;
+   }
+
+   .cart-page .cart-item-subtotal {
+      order: 2;
+      min-width: auto !important;
+   }
+
+   .cart-page .cart-item-remove {
+      order: 3;
+   }
+
+   .cart-page .cart-total-section {
+      flex-direction: column !important;
+      gap: 15px;
+      text-align: center;
+   }
+
+   .cart-page .cart-header {
+      flex-direction: column !important;
+      gap: 10px;
+      text-align: center;
+   }
+}
+
+/* ---------- Страница товара (адаптив) ---------- */
+@media (max-width: 768px) {
+   .product-page {
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
+      padding: 15px !important;
+   }
+
+   .product-page .product-slider-section {
+      min-height: auto !important;
+   }
+}
+
+/* ---------- Профиль (адаптив) ---------- */
+@media (max-width: 768px) {
+   .profile-form {
+      max-width: 100% !important;
+   }
+
+   .profile-order-header {
+      flex-direction: column !important;
+      gap: 8px;
+      align-items: flex-start !important;
+   }
+}
+
+/* ---------- Фильтры на главной (адаптив) ---------- */
+/* Десктоп: сайдбар с фильтрами всегда виден */
+.sidebar-filters {
+   display: block;
+}
+
+/* Крестик закрытия фильтров — скрыт на десктопе */
+.sidebar-close {
+   display: none;
+}
+
+@media (max-width: 770px) {
+   .home-layout {
+      grid-template-columns: 1fr !important;
+   }
+
+   /* Мобильные: фильтры скрыты по умолчанию */
+   .sidebar-filters {
+      display: none;
+   }
+
+   /* Показываем фильтры при открытии */
+   .sidebar-filters.open {
+      display: block;
+   }
+
+   /* Крестик закрытия — виден только когда фильтры открыты */
+   .sidebar-close {
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--text);
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+   }
+
+   .sidebar-filters.open .sidebar-close {
+      display: flex !important;
+   }
+}
+
+/* Кнопка показать/скрыть фильтры — только на мобильных */
+.filter-toggle {
+   display: none;
+}
+
+@media (max-width: 770px) {
+   .filter-toggle {
+      display: inline-block !important;
+   }
+}
+
+/* ---------- Формы аутентификации (адаптив) ---------- */
+@media (max-width: 480px) {
+   .auth-form-container {
+      padding: 20px !important;
+      max-width: 100% !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+   }
+}
+
+/* ---------- Подвал (адаптив) ---------- */
+@media (max-width: 600px) {
+   .footer-container {
+      flex-direction: column !important;
+      gap: 5px;
+      text-align: center;
+   }
+}
+
+/* ---------- Страница товара (очень маленькие экраны) ---------- */
+@media (max-width: 480px) {
+   .product-page .product-name {
+      font-size: 22px !important;
+   }
+
+   .product-page .product-price {
+      font-size: 26px !important;
+   }
+}
+
+/* ---------- Слайдер изображений (адаптив) ---------- */
+@media (max-width: 768px) {
+   .image-slider-main {
+      height: 300px !important;
+   }
+}
+
+@media (max-width: 480px) {
+   .image-slider-main {
+      height: 250px !important;
    }
 }

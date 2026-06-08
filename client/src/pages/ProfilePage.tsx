@@ -70,7 +70,11 @@ const ProfilePage = () => {
          <div style={styles.section}>
             <h2 style={styles.sectionTitle}>Мой профиль</h2>
 
-            <form onSubmit={handleSaveProfile} style={styles.form}>
+            <form
+               onSubmit={handleSaveProfile}
+               className="profile-form"
+               style={styles.form}
+            >
                <div style={styles.field}>
                   <label style={styles.label}>Имя</label>
                   <input
@@ -131,7 +135,10 @@ const ProfilePage = () => {
                <div style={styles.ordersList}>
                   {orders.map((order) => (
                      <div key={order.id} style={styles.orderCard}>
-                        <div style={styles.orderHeader}>
+                        <div
+                           className="profile-order-header"
+                           style={styles.orderHeader}
+                        >
                            <span style={styles.orderId}>Заказ №{order.id}</span>
                            <span
                               style={{

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
 import {
    fetchProducts,
@@ -15,6 +15,7 @@ const HomePage = () => {
    const { products, loading, error, filters, total, page, totalPages } =
       useAppSelector((state) => state.products);
    const { categories } = useAppSelector((state) => state.categories);
+   const [filtersVisible, setFiltersVisible] = useState(false);
 
    useEffect(() => {
       dispatch(fetchCategories());
@@ -41,8 +42,18 @@ const HomePage = () => {
    }
 
    return (
-      <div style={styles.home}>
-         <div style={styles.sidebar}>
+      <div className="home-layout" style={styles.home}>
+         <div
+            className={`sidebar-filters ${filtersVisible ? "open" : ""}`}
+            style={styles.sidebar}
+         >
+            <button
+               className="sidebar-close"
+               onClick={() => setFiltersVisible(false)}
+               aria-label="Закрыть фильтры"
+            >
+               ✕
+            </button>
             <FilterBar
                categories={categories}
                filters={filters}
@@ -53,6 +64,12 @@ const HomePage = () => {
          <div style={styles.content}>
             <div style={styles.header}>
                <h2>Наши товары</h2>
+               <button
+                  className="btn-secondary filter-toggle"
+                  onClick={() => setFiltersVisible((prev) => !prev)}
+               >
+                  {filtersVisible ? "Скрыть фильтры" : "Фильтры"}
+               </button>
                <span style={styles.total}>Найдено: {total}</span>
             </div>
 

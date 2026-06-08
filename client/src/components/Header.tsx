@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../store";
 import { logout } from "../store/authSlice";
@@ -6,21 +7,37 @@ const Header = () => {
    const { user, token } = useAppSelector((state) => state.auth);
    const { items } = useAppSelector((state) => state.cart);
    const dispatch = useAppDispatch();
+   const [menuOpen, setMenuOpen] = useState(false);
 
    const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
+
+   const closeMenu = () => setMenuOpen(false);
 
    return (
       <header style={styles.header}>
          <div className="container" style={styles.container}>
-            <Link to="/" style={styles.logo}>
-               <h1>МАкси</h1>
+            <Link to="/" style={styles.logo} onClick={closeMenu}>
+               <h1>Макси</h1>
             </Link>
 
-            <nav style={styles.nav}>
-               <Link to="/" style={styles.link}>
+            <button
+               className={`hamburger ${menuOpen ? "open" : ""}`}
+               onClick={() => setMenuOpen((prev) => !prev)}
+               aria-label="Меню"
+            >
+               <span />
+               <span />
+               <span />
+            </button>
+
+            <nav
+               className={`nav-menu ${menuOpen ? "open" : ""}`}
+               style={styles.nav}
+            >
+               <Link to="/" style={styles.link} onClick={closeMenu}>
                   Главная
                </Link>
-               <Link to="/cart" style={styles.link}>
+               <Link to="/cart" style={styles.link} onClick={closeMenu}>
                   Корзина
                   {cartCount > 0 && (
                      <span style={styles.badge}>{cartCount}</span>
@@ -29,11 +46,18 @@ const Header = () => {
 
                {token && user ? (
                   <div style={styles.userMenu}>
-                     <Link to="/profile" style={styles.link}>
+                     <Link
+                        to="/profile"
+                        style={styles.link}
+                        onClick={closeMenu}
+                     >
                         {user.name}
                      </Link>
                      <button
-                        onClick={() => dispatch(logout())}
+                        onClick={() => {
+                           dispatch(logout());
+                           closeMenu();
+                        }}
                         className="btn-secondary"
                         style={styles.btnLogout}
                      >
@@ -42,13 +66,14 @@ const Header = () => {
                   </div>
                ) : (
                   <div style={styles.userMenu}>
-                     <Link to="/login" style={styles.link}>
+                     <Link to="/login" style={styles.link} onClick={closeMenu}>
                         Войти
                      </Link>
                      <Link
                         to="/register"
                         className="btn-primary"
                         style={styles.btnRegister}
+                        onClick={closeMenu}
                      >
                         Регистрация
                      </Link>

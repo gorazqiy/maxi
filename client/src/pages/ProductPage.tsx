@@ -57,8 +57,11 @@ const ProductPage = () => {
             &#8592; Назад к товарам
          </Link>
 
-         <div style={styles.productPage}>
-            <div style={styles.sliderSection}>
+         <div className="product-page" style={styles.productPage}>
+            <div
+               className="product-slider-section"
+               style={styles.sliderSection}
+            >
                <ImageSlider
                   images={product.images || []}
                   productName={product.name}
@@ -66,7 +69,9 @@ const ProductPage = () => {
             </div>
 
             <div style={styles.infoSection}>
-               <h1 style={styles.name}>{product.name}</h1>
+               <h1 className="product-name" style={styles.name}>
+                  {product.name}
+               </h1>
 
                {product.category && (
                   <Link
@@ -77,7 +82,7 @@ const ProductPage = () => {
                   </Link>
                )}
 
-               <p style={styles.price}>
+               <p className="product-price" style={styles.price}>
                   {Number(product.price).toLocaleString()} ₽
                </p>
 

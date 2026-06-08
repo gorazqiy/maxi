@@ -45,7 +45,7 @@ const RegisterPage = () => {
 
    return (
       <div style={styles.authPage}>
-         <div style={styles.formContainer}>
+         <div className="auth-form-container" style={styles.formContainer}>
             <h2 style={styles.title}>Регистрация</h2>
 
             {displayError && <div style={styles.error}>{displayError}</div>}

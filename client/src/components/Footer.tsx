@@ -1,7 +1,7 @@
 const Footer = () => {
    return (
       <footer style={styles.footer}>
-         <div className="container" style={styles.container}>
+         <div className="container footer-container">
             <p>
                &copy; {new Date().getFullYear()} МАкси - Магазин собственного
                производства
@@ -18,11 +18,6 @@ const styles: Record<string, React.CSSProperties> = {
       color: "var(--white)",
       padding: "20px 0",
       textAlign: "center",
-   },
-   container: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
    },
 };
 

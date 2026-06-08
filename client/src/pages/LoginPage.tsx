@@ -28,7 +28,7 @@ const LoginPage = () => {
 
    return (
       <div style={styles.authPage}>
-         <div style={styles.formContainer}>
+         <div className="auth-form-container" style={styles.formContainer}>
             <h2 style={styles.title}>Вход</h2>
 
             {error && <div style={styles.error}>{error}</div>}

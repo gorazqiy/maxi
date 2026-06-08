@@ -82,8 +82,8 @@ const CartPage = () => {
    );
 
    return (
-      <div style={styles.cartPage}>
-         <div style={styles.header}>
+      <div className="cart-page" style={styles.cartPage}>
+         <div className="cart-header" style={styles.header}>
             <h2>Корзина ({items.length} товаров)</h2>
             <button
                onClick={handleClearCart}
@@ -100,8 +100,9 @@ const CartPage = () => {
 
          <div style={styles.itemsList}>
             {items.map((item) => (
-               <div key={item.id} style={styles.item}>
+               <div key={item.id} className="cart-item" style={styles.item}>
                   <img
+                     className="cart-item-image"
                      src={
                         item.product.images && item.product.images.length > 0
                            ? item.product.images[0].image_url
@@ -114,7 +115,7 @@ const CartPage = () => {
                            "/images/no-image.png";
                      }}
                   />
-                  <div style={styles.itemInfo}>
+                  <div className="cart-item-info" style={styles.itemInfo}>
                      <Link
                         to={`/product/${item.product.id}`}
                         style={styles.itemName}
@@ -125,7 +126,10 @@ const CartPage = () => {
                         {Number(item.product.price).toLocaleString()} ₽
                      </p>
                   </div>
-                  <div style={styles.quantityControls}>
+                  <div
+                     className="cart-item-quantity"
+                     style={styles.quantityControls}
+                  >
                      <button
                         onClick={() =>
                            handleQuantityChange(item.id, item.quantity - 1)
@@ -144,13 +148,14 @@ const CartPage = () => {
                         +
                      </button>
                   </div>
-                  <p style={styles.subtotal}>
+                  <p className="cart-item-subtotal" style={styles.subtotal}>
                      {(
                         Number(item.product.price) * item.quantity
                      ).toLocaleString()}{" "}
                      ₽
                   </p>
                   <button
+                     className="cart-item-remove"
                      onClick={() => handleRemove(item.id)}
                      style={styles.removeBtn}
                   >
@@ -160,7 +165,7 @@ const CartPage = () => {
             ))}
          </div>
 
-         <div style={styles.totalSection}>
+         <div className="cart-total-section" style={styles.totalSection}>
             <div style={styles.totalInfo}>
                <span style={styles.totalLabel}>Итого:</span>
                <span style={styles.totalPrice}>{total.toLocaleString()} ₽</span>
