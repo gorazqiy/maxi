@@ -12,6 +12,7 @@ import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
    const dispatch = useAppDispatch();
@@ -43,6 +44,7 @@ function App() {
                         </ProtectedRoute>
                      }
                   />
+                  <Route path="*" element={<NotFoundPage />} />
                </Routes>
             </div>
          </main>
